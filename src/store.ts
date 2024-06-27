@@ -1,14 +1,21 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import { TaskType } from "../components/Task";
+
+interface Task {
+  id: number;
+  title: string;
+  description: string;
+  state: string;
+  date: string;
+}
 
 interface TaskStore {
-  tasks: TaskType[];
-  addTask: (id: number, tile: string, state: string) => void;
+  tasks: Task[];
+  addTask: (task: Task) => void;
   deleteTask: (id: number) => void;
   draggedTask: number;
   setDraggedTask: (id: number) => void;
-  moveTask: (id: number, title: string, state: string) => void;
+  moveTask: (task: Task) => void;
 }
 
 const useTaskStore = create<TaskStore>()(
@@ -17,17 +24,19 @@ const useTaskStore = create<TaskStore>()(
       (set) => ({
         tasks: [],
         draggedTask: 0,
-        addTask: (id, title, state) =>
-          set((store) => ({ tasks: [...store.tasks, { id, title, state }] })),
+        addTask: (task) =>
+          set((store) => ({
+            tasks: [...store.tasks, task],
+          })),
         deleteTask: (id) =>
           set((store) => ({
             tasks: store.tasks.filter((task) => task.id !== id),
           })),
         setDraggedTask: (id) => set({ draggedTask: id }),
-        moveTask: (id, title, state) =>
+        moveTask: ({ id, title, description, state, date }) =>
           set((store) => ({
             tasks: store.tasks.map((task) =>
-              task.id == id ? { id, title, state } : task
+              task.id == id ? { id, title, description, state, date } : task
             ),
           })),
       }),

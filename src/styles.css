@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  input {
+    @apply p-2 w-[300px] text-sm outline-none border border-gray-400 focus:outline-none rounded-sm;
+  }
+}
