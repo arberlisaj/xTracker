@@ -1,16 +1,23 @@
 {
-  "name": "backend",
+  "name": "x-tracker",
   "version": "1.0.0",
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node backend/server.js",
-    "server": "nodemon backend/server.js"
+    "start": "node api/server.js",
+    "client": "npm run dev --prefix frontend",
+    "server": "nodemon api/server.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": [
+    "mern",
+    "mern-auth",
+    "react-auth",
+    "authentication"
+  ],
+  "author": "Arber Lisaj",
+  "license": "MIT",
+  "description": "User Authentication system",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",
@@ -22,6 +29,7 @@
     "mongoose": "^8.8.1"
   },
   "devDependencies": {
+    "concurrently": "^9.1.0",
     "nodemon": "^3.1.7"
   }
 }
